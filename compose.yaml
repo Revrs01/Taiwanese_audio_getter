@@ -1,0 +1,27 @@
+services:
+  audio_retriever:
+    build:
+      dockerfile: Dockerfile
+    networks:
+      - my_network
+    volumes:
+      - .:/app
+      - ../../static/audio/Tai_audio_test:/Tai_audio_test
+    restart: always
+
+  nginx:
+    build:
+      dockerfile: Dockerfile_Nginx
+    ports:
+      - "5648:5648"
+    networks:
+      - my_network
+    depends_on:
+      - audio_retriever
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    restart: always
+
+networks:
+  my_network:
+    driver: bridge
