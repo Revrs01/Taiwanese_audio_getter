@@ -10,8 +10,7 @@ services:
     restart: always
 
   nginx:
-    build:
-      dockerfile: Dockerfile_Nginx
+    image: nginx:1.27.2
     ports:
       - "5648:5648"
     networks:
